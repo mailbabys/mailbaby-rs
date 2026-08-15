@@ -5,9 +5,11 @@
 **Official Rust client for the [MailBaby](https://github.com/mailbabys/mailbaby) email delivery microservice**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![crates.io](https://img.shields.io/crates/v/mailbaby.svg)](https://crates.io/crates/mailbaby)
-[![docs.rs](https://img.shields.io/docsrs/mailbaby.svg)](https://docs.rs/mailbaby)
+[![Git](https://img.shields.io/badge/source-github-blue?logo=github)](https://github.com/mailbabys/mailbaby-rs)
 [![Rust](https://img.shields.io/badge/rust-1.85%2B-orange.svg)](Cargo.toml)
+
+> **Not published to [crates.io](https://crates.io).** This crate is consumed
+> directly from the Git repository — see [Installation](#-installation).
 
 </div>
 
@@ -27,18 +29,23 @@ routed over any channel.
 
 ## 📦 Installation
 
-Add to your `Cargo.toml`:
+The crate is **not published to crates.io**; depend on it directly from Git.
+Pin to a tag, branch or commit so your builds are reproducible:
 
 ```toml
 [dependencies]
-mailbaby = "0.1"
+# Pin to a specific tag
+mailbaby = { git = "https://github.com/mailbabys/mailbaby-rs", tag = "v0.1.0" }
+
+# Or track the main branch at a specific commit
+mailbaby = { git = "https://github.com/mailbabys/mailbaby-rs", rev = "fa3d746" }
 ```
 
-By default only the REST feature is enabled. Enable the ones you need:
+By default only the `rest` feature is enabled. Enable the ones you need:
 
 ```toml
 [dependencies]
-mailbaby = { version = "0.1", features = ["grpc", "mq"] }
+mailbaby = { git = "https://github.com/mailbabys/mailbaby-rs", tag = "v0.1.0", features = ["grpc", "mq"] }
 ```
 
 Available features:
@@ -136,10 +143,8 @@ println!("live: {} | ready: {}", live.status, ready.status);
 # }
 ```
 
-## 🧱 Examples & docs
+## 🧱 Examples
 
-- [Full crate documentation on docs.rs](https://docs.rs/mailbaby) — built with
-  `--all-features` so every module is visible.
 - [`examples/send.rs`](examples/send.rs) — REST end-to-end
 - [`examples/grpc_send.rs`](examples/grpc_send.rs) — gRPC send + ping
 - [`examples/mq_publish.rs`](examples/mq_publish.rs) — direct MQ publishing

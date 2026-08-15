@@ -7,6 +7,8 @@ license = "Apache-2.0"
 repository = "https://github.com/mailbabys/mailbaby-rs"
 keywords = ["mail", "smtp", "email", "queue", "mailbaby"]
 categories = ["network-programming", "email"]
+# Not published to crates.io — consumed via git reference (see README).
+publish = false
 
 [features]
 default = ["rest"]
