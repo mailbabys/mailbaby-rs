@@ -1,0 +1,13 @@
+# Rust build output
+/target/
+
+# IDE & Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Library crate: do not commit Cargo.lock (Cargo convention for publishable libs)
+Cargo.lock

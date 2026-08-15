@@ -1,0 +1,63 @@
+[package]
+name = "mailbaby"
+version = "0.1.0"
+edition = "2024"
+description = "Rust client for the MailBaby email delivery microservice (REST, gRPC and message-queue ingestion)"
+license = "Apache-2.0"
+repository = "https://github.com/mailbabys/mailbaby"
+keywords = ["mail", "smtp", "email", "queue", "mailbaby"]
+categories = ["network-programming", "email"]
+
+[features]
+default = ["rest"]
+
+# HTTP REST API client (POST /v1/email/send, /v1/email/batch, health probes)
+rest = ["dep:reqwest"]
+
+# gRPC client for mailbaby.v1.MailService (compiles proto/mailbaby.proto at build time)
+grpc = ["dep:tonic", "dep:tonic-prost", "dep:prost", "dep:tonic-prost-build"]
+
+# All message-queue producer drivers
+mq = ["mq-rabbitmq", "mq-redis", "mq-kafka"]
+
+# RabbitMQ / AMQP 0-9-1 producer (lapin)
+mq-rabbitmq = ["dep:lapin", "dep:chrono"]
+
+# Redis Stream / List / PubSub producer (redis-rs)
+mq-redis = ["dep:redis", "dep:chrono"]
+
+# Kafka producer (rskafka, pure Rust)
+mq-kafka = ["dep:rskafka", "dep:chrono"]
+
+[dependencies]
+base64 = "0.23.1"
+chrono = { version = "0.4.45", optional = true }
+lapin = { version = "4.10.0", features = ["tokio"], optional = true }
+prost = { version = "0.14.4", optional = true }
+redis = { version = "1.5.0", features = ["tokio-comp", "connection-manager"], optional = true }
+reqwest = { version = "0.13.4", features = ["json", "query"], optional = true }
+rskafka = { version = "0.6.0", optional = true }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+thiserror = "2.0.20"
+tokio = { version = "1.53.1", features = ["time", "macros", "rt-multi-thread"] }
+tonic = { version = "0.14.6", features = ["transport", "tls-aws-lc"], optional = true }
+tonic-prost = { version = "0.14.6", optional = true }
+
+[build-dependencies]
+tonic-prost-build = { version = "0.14.6", optional = true }
+
+[dev-dependencies]
+anyhow = "1.0"
+
+[[example]]
+name = "send"
+required-features = ["rest"]
+
+[[example]]
+name = "grpc_send"
+required-features = ["grpc"]
+
+[[example]]
+name = "mq_publish"
+required-features = ["mq-rabbitmq", "mq-redis", "mq-kafka"]
