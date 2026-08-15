@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 description = "Rust client for the MailBaby email delivery microservice (REST, gRPC and message-queue ingestion)"
 license = "Apache-2.0"
-repository = "https://github.com/mailbabys/mailbaby"
+repository = "https://github.com/mailbabys/mailbaby-rs"
 keywords = ["mail", "smtp", "email", "queue", "mailbaby"]
 categories = ["network-programming", "email"]
 
